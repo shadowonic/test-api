@@ -1,0 +1,9 @@
+NODE_ENV=development
+
+SALT=Qlut1X5alNcK6LWxcTeF7OZsA8mOsKve
+
+API_PORT=3000
+DB_HOST=pro-net-api-db
+DB_PORT=27017
+MONGODB_USER="pro-net" 
+MONGODB_PASS="pro-net-pass"

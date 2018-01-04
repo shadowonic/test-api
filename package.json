@@ -1,0 +1,21 @@
+{
+  "name": "pro-net-api",
+  "version": "0.0.0",
+  "description": "Backend",
+  "main": "index.js",
+  "repository": "git@bitbucket.org:pro-net/pro-net-api.git",
+  "author": "Eugene Plastun",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "boom": "^7.1.1",
+    "jest": "^22.0.4",
+    "jest-cli": "^22.0.4",
+    "reflect-metadata": "^0.1.10",
+    "socket-controllers": "^0.0.3",
+    "ts-node": "^4.1.0",
+    "tslint": "^5.8.0",
+    "tslint-eslint-rules": "^4.1.1",
+    "typescript": "^2.6.2"
+  }
+}
