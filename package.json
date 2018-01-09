@@ -7,6 +7,12 @@
   "author": "Eugene Plastun",
   "license": "MIT",
   "private": true,
+  "scripts": {
+    "start": "node_modules/.bin/ts-node ./src/index.ts",
+    "dev": "nodemon -w src --exec node_modules/.bin/ts-node ./src/index.ts",
+    "lint": "node_modules/.bin/tslint --project ./tslint.json",
+    "test": "node_modules/.bin/jest --silent=false --colors"
+  },
   "dependencies": {
     "boom": "^7.1.1",
     "jest": "^22.0.4",
