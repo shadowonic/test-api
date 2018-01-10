@@ -24,6 +24,6 @@ export class MessageController {
     console.info('received message:', message);
     console.info('setting id to the message and sending it back to the client');
     message.id = 1;
-    socket.emit('message_saved', message);
+    socket.emit('message', {type: 'message_saved', message});
   }
 }
