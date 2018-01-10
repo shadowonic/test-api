@@ -14,14 +14,21 @@
     "test": "node_modules/.bin/jest --silent=false --colors"
   },
   "dependencies": {
+    "@types/mongodb": "^2.2.18",
+    "@types/mongoose": "^4.7.32",
     "boom": "^7.1.1",
     "jest": "^22.0.4",
     "jest-cli": "^22.0.4",
+    "mongoose": "^4.13.9",
     "reflect-metadata": "^0.1.10",
     "socket-controllers": "^0.0.3",
     "ts-node": "^4.1.0",
     "tslint": "^5.8.0",
     "tslint-eslint-rules": "^4.1.1",
     "typescript": "^2.6.2"
+  },
+  "devDependencies": {
+    "prettier": "^1.10.1",
+    "tslint-config-prettier": "^1.6.0"
   }
 }
