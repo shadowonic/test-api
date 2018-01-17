@@ -1,4 +1,4 @@
-NODE_ENV=development
+NODE_ENV=debug
 
 SALT=Qlut1X5alNcK6LWxcTeF7OZsA8mOsKve
 

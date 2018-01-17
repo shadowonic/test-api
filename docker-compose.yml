@@ -8,6 +8,7 @@ services:
       - ./src:/var/www/pro-net-api/src
     ports:
       - "3000:3000"
+      - "9222:9222"
     env_file: ./docker/environments
     links:
       - pro-net-api-db
