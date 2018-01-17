@@ -1,0 +1,43 @@
+{
+    // Используйте IntelliSense, чтобы узнать о возможных атрибутах.
+    // Наведите указатель мыши, чтобы просмотреть описания существующих атрибутов.
+    // Для получения дополнительной информации посетите: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Attach",
+            "type": "node",
+            "request": "attach",
+            "port": 9222,
+            "address": "localhost",
+            "restart": true,
+            // "sourceMaps": false,
+            // "outDir": null,
+            "localRoot": "${workspaceRoot}",
+            "remoteRoot": "/var/www/pro-net-api"
+        },
+        {
+            "name": "Current TS File",
+            "type": "node",
+            "request": "launch",
+            "args": ["${relativeFile}"],
+            "runtimeArgs": ["-r", "ts-node/register"],
+            "cwd": "${workspaceRoot}",
+            "protocol": "inspector",
+            "internalConsoleOptions": "openOnSessionStart"
+        },
+        {
+            "type": "node",
+            "request": "attach",
+            "name": "Attach to Docker",
+            // "preLaunchTask": "tsc-watch",
+            "port": 9222,
+            "restart": true,
+            "localRoot": "${workspaceRoot}/src",
+            "remoteRoot": "/var/www/pro-net-api/src",
+            "outFiles": [
+              "${workspaceRoot}/dist/**/*.js"
+            ]
+          }
+    ]
+}
