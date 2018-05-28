@@ -1,15 +1,23 @@
-FROM node:latest
+FROM golang:1.10-alpine
+ENV GOPATH /go
+ENV APIPATH $GOPATH/pro-net-api
+ENV PATH $APIPATH:$GOPATH/bin:/usr/local/go/bin:$PATH
 
-RUN curl -o- -L https://yarnpkg.com/install.sh | bash
-RUN npm i -g typescript ts-node
-RUN npm i -g nodemon
+ADD . $APIPATH
+WORKDIR $APIPATH
+RUN apk add --no-cache ca-certificates \
+  dpkg \
+  gcc \
+  git \
+  musl-dev \
+  bash \
+  make \
+  curl \
+  && curl https://glide.sh/get | sh
+RUN mkdir -p "$GOPATH/src" "$GOPATH/bin" \
+  && chmod -R 777 "$GOPATH" \
+  && chmod +x entrypoint.sh
+RUN go get github.com/tockins/realize
 
-ADD . /var/www/pro-net-api
-
-WORKDIR /var/www/pro-net-api
-
-RUN yarn install
-
-EXPOSE 3000
-
-CMD ["docker/start.sh"]
+ENTRYPOINT ["/go/pro-net-api/entrypoint.sh"]
+CMD ["realize", "start"]
