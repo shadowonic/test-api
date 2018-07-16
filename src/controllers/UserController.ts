@@ -1,24 +1,24 @@
-import { Controller, JsonController, Param, Body, Get, Post, Put, Delete, Req, Res, HttpCode, OnUndefined, HttpError } from "routing-controllers";
-import { SpawnSyncReturns } from "child_process";
+import {
+    JsonController, Param, Body, HttpCode,
+    Get, Post, Put, Delete, HttpError
+} from "routing-controllers";
 
-import { connection } from '../db';
-import { userSchema } from '../schemas'
-import { IUserModel } from '../interfaces/IUserModel'
-    ;
-import { isNull } from "util";
-const User = connection.model<IUserModel>('User', userSchema);
+import { authService } from '../sevices'
+import { IUser,  IUserParams } from '../interfaces';
+import { User } from '../models/connections'
+
 
 @JsonController()
 export class UserController {
-
+    private authService: authService
+    constructor() {
+        this.authService = new authService();
+    }
     @Get("/users")
     async getAll() {
         const users = (await User.find()).map(user => user.toJSON());
-        console.log(users);
-
         return users
     }
-
     @Get("/users/:id")
     async getOne(@Param("id") id: string) {
         const result = await User.findById(id)
@@ -28,28 +28,21 @@ export class UserController {
         }
         return user
     }
-
-
     @Post("/users")
     @HttpCode(201)
-    async  post(@Body() user: IUserModel) {
-        let result = (await User.find(user.email)).map(user => user.email)
-        let mayCreate = true
-        await result.forEach(item => {
-            if (item == user.email) {
-                mayCreate = false
-            }
-        })
-        if (!mayCreate) {
+    async  post(@Body() { password, ...user }: IUserParams) {
+        if ((await User.find({ email: user.email })).length) {
             throw new HttpError(405, `User already exist`);
         }
-        else 
-       new User(user).save()
+        new User({
+            hash: this.authService.getHash(password),
+            ...user
+        }).save()
         return 'created'
     }
 
     @Put("/users/:id")
-    async put(@Param("id") id: string, @Body() user: IUserModel) {
+    async put(@Param("id") id: string, @Body() user: IUser) {
         await User.findByIdAndUpdate(id, user);
         return 'success'
     }
@@ -59,6 +52,4 @@ export class UserController {
         await User.findByIdAndRemove(id);
         return 'user deleted'
     }
-
-
 }

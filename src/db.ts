@@ -1,8 +1,7 @@
 import * as mongoose from 'mongoose';
 
 import { DB_HOST, DB_NAME, DB_PORT } from './config';
-import { userSchema } from './schemas';
-import { IUserModel, IUser } from './interfaces';
+
 
 const MONGODB_CONNECTION: string = `mongodb://${DB_HOST}:${DB_PORT}/${DB_NAME}`;
 
