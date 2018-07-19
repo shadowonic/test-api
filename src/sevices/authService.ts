@@ -3,15 +3,15 @@ import * as jwt from 'jsonwebtoken'
 import { SALT, tokenTime } from '../config'
 
 export class authService {
-    getHash(password) {
+    static getHash(password) {
         return crypto.createHash('sha256').update(password).digest('hex');
     }
-    tokenEncode(userId) {
+    static tokenEncode(userId) {
         return jwt.sign({
             userId
         }, SALT, { expiresIn: tokenTime });
     }
-    tokenDecode(token) {
+    static tokenDecode(token) {
         return  jwt.verify(token, SALT) 
     }
 }

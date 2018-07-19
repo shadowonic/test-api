@@ -10,9 +10,12 @@ import { User } from '../models/connections'
 
 @JsonController()
 export class UserController {
-    private authService: authService
-    constructor() {
-        this.authService = new authService();
+
+    @Get("/")
+    @HttpCode(200)
+     some(){
+        
+        return 'test response'
     }
     @Get("/users")
     async getAll() {
@@ -35,7 +38,7 @@ export class UserController {
             throw new HttpError(405, `User already exist`);
         }
         new User({
-            hash: this.authService.getHash(password),
+            hash: authService.getHash(password),
             ...user
         }).save()
         return 'created'
@@ -44,7 +47,7 @@ export class UserController {
     @Put("/users/:id")
     async put(@Param("id") id: string, @Body() user: IUser) {
         await User.findByIdAndUpdate(id, user);
-        return 'success'
+        return 'user edited'
     }
 
     @Delete("/users/:id")

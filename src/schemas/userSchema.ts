@@ -1,5 +1,6 @@
 import { Schema } from 'mongoose';
 import { IUserModel } from '../interfaces';
+import { authService } from '../sevices';
 
 export const userSchema: Schema = new Schema({
   createdAt: Date,

@@ -1,8 +1,8 @@
 version: '3'
 services:
   api:
-    container_name: pro-net-api
-    hostname: pro-net-api
+    container_name: pro-net
+    hostname: backend
     build: ./
     volumes:
       - ./src:/var/www/pro-net-api/src
