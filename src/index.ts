@@ -1,21 +1,5 @@
-import 'reflect-metadata'; // this shim is required
+import { startServer } from './server';
+import { API_PORT, DB_HOST, DB_NAME, DB_PORT } from './config';
 
-import './db';
-import './MessageController'; // we need to "load" our controller before call createSocketServer. this is required
-import './middleware';
-import { useKoaServer} from 'routing-controllers';
-import * as Koa from 'koa';
-
-import {API_PORT} from './config'
-
-const app = new Koa();
-
-const port = API_PORT || 3000;
-
-useKoaServer(app, {
-  routePrefix: '',
-  controllers: [__dirname + '/controllers/**/*.ts'],
-});
-app.listen(port);
-
+startServer(API_PORT, `mongodb://${DB_HOST}:${DB_PORT}/${DB_NAME}`);
 

@@ -5,8 +5,8 @@ import {
 
 import { authService } from '../sevices'
 import { IUser,  IUserParams } from '../interfaces';
-import { User } from '../models/connections'
-
+import { User } from '../models/'
+import { validate, IsEmail } from "class-validator";
 
 @JsonController()
 export class UserController {
@@ -14,7 +14,7 @@ export class UserController {
     @Get("/")
     @HttpCode(200)
      some(){
-        
+    
         return 'test response'
     }
     @Get("/users")
@@ -33,14 +33,17 @@ export class UserController {
     }
     @Post("/users")
     @HttpCode(201)
-    async  post(@Body() { password, ...user }: IUserParams) {
+    async  post(@Body({required: true})  { password, ...user }: IUserParams) {
         if ((await User.find({ email: user.email })).length) {
             throw new HttpError(405, `User already exist`);
         }
+     
+     
         new User({
             hash: authService.getHash(password),
             ...user
         }).save()
+       
         return 'created'
     }
 

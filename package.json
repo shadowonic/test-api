@@ -8,7 +8,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "node_modules/.bin/ts-node ./src/index.ts",
+    "start": "nodemon -w src --exec node_modules/.bin/ts-node ./src/index.ts",
     "dev": "nodemon -w src --exec node_modules/.bin/ts-node ./src/index.ts",
     "debug": "nodemon -r ts-node/register --inspect=0.0.0.0:9222 ./src/index.ts",
     "docker-debug": "docker-compose up api",
@@ -60,6 +60,7 @@
   },
   "devDependencies": {
     "@types/jest": "^23.1.6",
+    "@types/koa": "^2.0.46",
     "jest": "^23.4.1",
     "prettier": "^1.10.1",
     "supertest": "^3.1.0",
