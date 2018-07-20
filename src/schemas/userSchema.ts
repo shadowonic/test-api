@@ -1,6 +1,5 @@
 import { Schema } from 'mongoose';
-import { IUserModel } from '../interfaces';
-import { authService } from '../sevices';
+import { UserModel } from '../interfaces';
 
 export const userSchema: Schema = new Schema(
   {
@@ -23,7 +22,7 @@ export const userSchema: Schema = new Schema(
   }
 );
 
-userSchema.pre<IUserModel>('save', function(next) {
+userSchema.pre<UserModel>('save', function(next) {
   if (!this.createdAt) {
     this.createdAt = new Date();
   }

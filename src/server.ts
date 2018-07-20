@@ -11,7 +11,10 @@ export const startServer = async (port, dbUrl) => {
   connection = await mongoose.createConnection(dbUrl)
   useKoaServer(app, {
     routePrefix: '',
+    defaultErrorHandler: false,
+    middlewares: [__dirname + '/middlware/**/*.ts' ],
     controllers: [__dirname + '/controllers/**/*.ts']
+    
   });
 
   return app.listen(port);

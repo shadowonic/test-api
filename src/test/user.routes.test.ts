@@ -3,8 +3,7 @@ import * as supertest from 'supertest';
 import { fakeUser } from './fakeDb/fakeUser';
 import { startServer } from '../server';
 import { testDbUrl } from './fakeDb/db';
-import { createKoaServer } from 'routing-controllers';
-import * as Koa from 'koa';
+
 let user = fakeUser;
 let userId;
 let password = user.password;
@@ -27,12 +26,17 @@ describe('route users', async () => {
 
   test('post user', async () => {
     const response = await request.post('/users').send(user);
-    expect(response.status).toBe(201);
+    expect(response.status).toBe(201)
   });
   test('post existing user', async () => {
     const response = await request.post('/users').send(user);
-    expect(response.status).toBe(405);
+    expect(response.status).toBe(400);
   });
+  test('post user with wrong email', async () => {
+    user.email = 'NotEmail'
+    const response = await request.post('/users').send(user)
+    expect(response.status).toBe(405)
+  })
   test('test routes', async () => {
     const response = await request.get('/users');
     userId = response.body[0]._id;
@@ -40,7 +44,6 @@ describe('route users', async () => {
   });
   test('get user by id', async () => {
     const response = await request.get(`/users/${userId}`);
-    console.log(response.body);
     expect(response.status).toBe(200);
   });
   test('delete user', async () => {

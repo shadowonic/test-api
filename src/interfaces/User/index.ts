@@ -1,3 +1,3 @@
-export * from './IUserParams';
-export * from './IUser';
-export * from './IUserModel';
+export * from './UserParams';
+export * from './User';
+export * from './UserModel';
