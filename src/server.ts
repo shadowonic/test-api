@@ -3,18 +3,16 @@ import { useKoaServer } from 'routing-controllers';
 import * as Koa from 'koa';
 
 import * as mongoose from 'mongoose';
+import { AuthorizationChecker } from './middlware/AuthorizationChecker';
 
-export let connection: mongoose.Connection;
 
 export const startServer = async (port, dbUrl) => {
+  await mongoose.connect(dbUrl)
   const app: Koa = new Koa();
-  connection = await mongoose.createConnection(dbUrl)
   useKoaServer(app, {
     routePrefix: '',
-    defaultErrorHandler: false,
-    middlewares: [__dirname + '/middlware/**/*.ts' ],
-    controllers: [__dirname + '/controllers/**/*.ts']
-    
+    controllers: [__dirname + '/controllers/**/*.ts'],
+    authorizationChecker: AuthorizationChecker
   });
 
   return app.listen(port);

@@ -1,6 +1,6 @@
-import { JsonController, Post, Body, HttpCode, HttpError, Get } from 'routing-controllers';
+import { JsonController, Post, Body, HttpCode, HttpError, Get, Authorized } from 'routing-controllers';
 import { User } from '../models/connections'
-import { IUserParams } from '../interfaces'
+import { UserParams } from '../interfaces'
 import { authService } from '../sevices';
 
 
@@ -9,7 +9,7 @@ export class AuthController {
 
     @Post("/login")
     @HttpCode(200)
-    async  post(@Body() { email, password }: IUserParams) {
+    async  post(@Body() { email, password }: UserParams) {
         const user = await User.findOne({ email })
         if (user) {
             if (authService.getHash(password) !== user.hash) {
@@ -19,5 +19,17 @@ export class AuthController {
         } else {
             throw new HttpError(406, `No such user`);
         }
+    }
+    @Authorized()
+    @Get('/test')
+    async all() {
+      const users = (await User.find()).map(user => user.toJSON());
+      return users;
+    }
+    @Authorized('admin')
+    @Get('/admin')
+    async try() {
+      const users = (await User.find()).map(user => user.toJSON());
+      return users;
     }
 }

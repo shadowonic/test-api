@@ -3,6 +3,10 @@ import * as supertest from 'supertest';
 import { fakeUser } from './fakeDb/fakeUser';
 import { startServer } from '../server';
 import { testDbUrl } from './fakeDb/db';
+import { useKoaServer, Action } from 'routing-controllers';
+import { User} from '../models/connections'
+import {authService} from '../sevices'
+import* as mongoose from 'mongoose'
 
 let user = fakeUser;
 let userId;
@@ -10,10 +14,11 @@ let password = user.password;
 let request;
 
 beforeAll(async () => {
+ 
   let port = 3012;
   let url = await testDbUrl();
+  // await mongoose.connect(url)
   const app = await startServer(port, url);
-
   request = supertest(app);
 }, 600000);
 afterAll(() => setTimeout(() => process.exit(), 1000));
@@ -30,12 +35,12 @@ describe('route users', async () => {
   });
   test('post existing user', async () => {
     const response = await request.post('/users').send(user);
-    expect(response.status).toBe(400);
+    expect(response.status).toBe(500);
   });
   test('post user with wrong email', async () => {
     user.email = 'NotEmail'
     const response = await request.post('/users').send(user)
-    expect(response.status).toBe(405)
+    expect(response.status).toBe(400)
   })
   test('test routes', async () => {
     const response = await request.get('/users');

@@ -9,7 +9,8 @@ export const userSchema: Schema = new Schema(
     password: String,
     firstName: String,
     lastName: String,
-    hash: String
+    hash: String,
+    roles: Array
   },
   {
     toJSON: {

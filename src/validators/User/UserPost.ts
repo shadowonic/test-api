@@ -1,4 +1,4 @@
-import { MinLength, IsEmail, IsString, IsNotEmpty, IsDateString } from 'class-validator';
+import { MinLength, IsEmail, IsString, IsNotEmpty, IsDateString, IsArray } from 'class-validator';
 
 import { UserParams } from '../../interfaces/User/UserParams';
 
@@ -32,7 +32,8 @@ export class UserPost implements UserParams {
   })
   password;
 
-  @IsDateString()
-  createdAt
+  // @IsDateString()
+  createdAt;
+  roles;
 
 }
