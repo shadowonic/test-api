@@ -18,7 +18,7 @@ export class CustomErrorHandler implements KoaMiddlewareInterface {
         payload = e.output.payload;
         payload.data = e.data;
       }
-      context.status = payload.status || payload.statusCode || 500;
+      context.status = payload.status || payload.statusCode || 501;
       context.body = payload;
     }
   }

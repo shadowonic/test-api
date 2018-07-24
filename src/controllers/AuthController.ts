@@ -2,7 +2,7 @@ import { JsonController, Post, Body, HttpCode, HttpError, Get, Authorized } from
 import { User } from '../models/connections'
 import { UserParams } from '../interfaces'
 import { authService } from '../sevices';
-
+import * as Boom from 'boom';
 
 @JsonController()
 export class AuthController {
@@ -10,14 +10,15 @@ export class AuthController {
     @Post("/login")
     @HttpCode(200)
     async  post(@Body() { email, password }: UserParams) {
+       
         const user = await User.findOne({ email })
         if (user) {
             if (authService.getHash(password) !== user.hash) {
-                throw new HttpError(406, 'Wrong password')
+                throw Boom.badRequest('wrong password');
             }
             return { token: authService.tokenEncode(user._id) }
         } else {
-            throw new HttpError(406, `No such user`);
+            throw Boom.badRequest('no such user');
         }
     }
     @Authorized()
@@ -28,7 +29,7 @@ export class AuthController {
     }
     @Authorized('admin')
     @Get('/admin')
-    async try() {
+    async test() {
       const users = (await User.find()).map(user => user.toJSON());
       return users;
     }

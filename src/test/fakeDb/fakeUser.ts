@@ -3,7 +3,7 @@ const dummy = require('mongoose-dummy');
 
 import { userSchema } from '../../schemas/userSchema';
 
-const ignoredFields = ['_id', 'id', 'hash', '__v'];
+const ignoredFields = ['_id', 'id', 'hash', '__v', 'roles'];
 let model = mongoose.model('Student', userSchema);
 export let fakeUser = dummy(model, {
   ignore: ignoredFields,
