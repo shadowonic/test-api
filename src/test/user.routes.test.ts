@@ -5,13 +5,13 @@ import { startServer } from '../server';
 import { testDbUrl } from './fakeDb/db';
 import { userRoute, authRoute } from './routeTests';
 
-let user = fakeUser;
-let admin = { ...user, firstName: 'shadow', email: 'someEmail@gmail.com' };
+const user = fakeUser;
+const admin = { ...user, firstName: 'shadow', email: 'someEmail@gmail.com' };
 export let request;
 
 beforeAll(async () => {
-  let port = 3012;
-  let url = await testDbUrl();
+  const port = 3012;
+  const url = await testDbUrl();
   const app = await startServer(port, url);
   request = supertest(app);
 }, 600000);

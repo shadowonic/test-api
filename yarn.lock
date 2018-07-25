@@ -192,6 +192,10 @@
   dependencies:
     "@types/superagent" "*"
 
+"@types/validator@^9.4.1":
+  version "9.4.1"
+  resolved "https://registry.yarnpkg.com/@types/validator/-/validator-9.4.1.tgz#bea5a290e61f1cbf12af3fd878706aeec2ba0087"
+
 abab@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/abab/-/abab-1.0.4.tgz#5faad9c2c07f60dd76770f71cf025b62a63cfd4e"
@@ -960,7 +964,7 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
-class-validator@^0.8.1:
+class-validator@^0.8.1, class-validator@^0.8.5:
   version "0.8.5"
   resolved "https://registry.yarnpkg.com/class-validator/-/class-validator-0.8.5.tgz#484785acda98f68549c3a84dc1bb2f77b736dc58"
   dependencies:

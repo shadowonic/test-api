@@ -6,7 +6,7 @@ import { UserParams } from '../../interfaces/User/UserParams';
 export class UserPost implements UserParams {
   @IsNotEmpty()
   @IsEmail() 
-  email;
+ public email;
 
   @IsNotEmpty()
   @IsString()
@@ -14,14 +14,14 @@ export class UserPost implements UserParams {
     message: '$property is too short'
   })
   @IsString()
-  firstName;
+  public firstName;
   
   @IsNotEmpty()
   @IsString()
   @MinLength(1, {
     message: '$property is too short'
   })
-  lastName;
+  public  lastName;
 
 
   
@@ -30,10 +30,10 @@ export class UserPost implements UserParams {
   @MinLength(1, {
     message: '$property is too short'
   })
-  password;
+  public  password;
 
   // @IsDateString()
-  createdAt;
-  roles;
+  public  createdAt;
+  public  roles;
 
 }

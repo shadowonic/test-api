@@ -1,15 +1,15 @@
-import { JsonController, Post, Body, HttpCode, HttpError, Get, Authorized } from 'routing-controllers';
+import { JsonController, Post, Body, HttpCode, Get, Authorized } from 'routing-controllers';
 import { User } from '../models/connections'
 import { UserParams } from '../interfaces'
-import { authService } from '../sevices';
+import { AuthService } from '../sevices';
 import * as Boom from 'boom';
-
+const authService = new AuthService
 @JsonController()
 export class AuthController {
 
-    @Post("/login")
+    @Post('/login')
     @HttpCode(200)
-    async  post(@Body() { email, password }: UserParams) {
+   public async  post(@Body() { email, password }: UserParams) {
        
         const user = await User.findOne({ email })
         if (user) {
@@ -23,13 +23,13 @@ export class AuthController {
     }
     @Authorized()
     @Get('/test')
-    async all() {
+    public  async all() {
       const users = (await User.find()).map(user => user.toJSON());
       return users;
     }
     @Authorized('admin')
     @Get('/admin')
-    async test() {
+    public  async test() {
       const users = (await User.find()).map(user => user.toJSON());
       return users;
     }
